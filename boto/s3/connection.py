@@ -316,10 +316,11 @@ class S3Connection(AWSAuthConnection):
         if max_content_length:
             conditions.append('["content-length-range", 0, %i]' % max_content_length)
 
-        if self.provider.security_token:
-            fields.append({'name': 'x-amz-security-token',
-                           'value': self.provider.security_token})
-            conditions.append('{"x-amz-security-token": "%s"}' % self.provider.security_token)
+        if query_auth:
+            if self.provider.security_token:
+                fields.append({'name': 'x-amz-security-token',
+                               'value': self.provider.security_token})
+                conditions.append('{"x-amz-security-token": "%s"}' % self.provider.security_token)
 
         if storage_class:
             fields.append({'name': 'x-amz-storage-class',
