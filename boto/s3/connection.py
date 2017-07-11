@@ -420,7 +420,7 @@ class S3Connection(AWSAuthConnection):
                                                    self.aws_access_key_id)
         else:
             query_part = ''
-        if headers:
+        if query_auth and headers:
             hdr_prefix = self.provider.header_prefix
             for k, v in headers.items():
                 if k.startswith(hdr_prefix):
